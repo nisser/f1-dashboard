@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# **F1 Dashboard**
+
+🚧 **In Development** 🚧: This project is being developed.
+
+A Formula 1 dashboard web application built with [Next.js](https://nextjs.org). This project provides F1 fans with a quick and interactive overview of the current season, featuring live driver and constructor standings, a responsive and modern user interface, and a world map displaying track locations. Each race includes a button to open the track location in Google Earth, and users can personalize their experience with a theme switcher that supports team colors.
+
+## Features
+
+- Live F1 driver standings
+- Live constructor standings
+- Responsive and modern UI
+- Map that shows the track location in the world
+- Buttons for each race that open the track location in Google Earth
+- Theme switcher with team colors
+
+## Data Source
+
+This project uses the [jolpica-f1 API](https://github.com/jolpica/jolpica-f1) for Formula 1 data.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js (v18 or newer recommended)
+- npm, yarn, pnpm, or bun
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/your-username/f1-dashboard.git
+    cd f1-dashboard
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Install dependencies:
+    ```bash
+    npm install
+    # or
+    yarn install
+    # or
+    pnpm install
+    # or
+    bun install
+    ```
 
-## Learn More
+3. Run the development server:
+    ```bash
+    npm run dev
+    # or
+    yarn dev
+    # or
+    pnpm dev
+    # or
+    bun dev
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to view the dashboard.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `src/app/` - Main Next.js app directory
+- `src/components/Constructors` - Constructor standings components
+- `src/components/Drivers` - Driver standings components
+- `src/components/Map` - Map components
+- `src/components/Races` - Race components
+- `public/` - Static assets
 
-## Deploy on Vercel
+## Customization
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- To add new features or modify the UI, edit the components in `src/components/`.
+- For theming or styling, update Tailwind CSS classes or add your own styles.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+*This project is not affiliated with Formula 1 or its partners. Data sources and APIs are used for educational purposes only.*
