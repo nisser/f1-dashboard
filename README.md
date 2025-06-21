@@ -1,6 +1,6 @@
 # **F1 Dashboard**
 
-🚧 **In Development** 🚧: This project is being developed.
+🚧 **In Development** 🚧
 
 A Formula 1 dashboard web application built with [Next.js](https://nextjs.org). This project provides F1 fans with a quick and interactive overview of the current season, featuring live driver and constructor standings, a responsive and modern user interface, and a world map displaying track locations. Each race includes a button to open the track location in Google Earth, and users can personalize their experience with a theme switcher that supports team colors.
 

@@ -12,15 +12,8 @@
   --kicksauber: #52E252;
   --alpine: #0093CC;
 
-  --background: var(--redbull);
+  --background: var(--mclaren);
   --foreground: #ffffff;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 body {
