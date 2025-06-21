@@ -28,6 +28,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <header className="sticky top-0 z-50 bg-slate-900/60 backdrop-blur-md border-b border-slate-700/50 p-4 shadow-md">
+          <div className="max-w-6xl mx-auto flex justify-between items-center">
+            <h1 className="text-lg font-semibold text-white">F1 Dashboard</h1>
+            <nav className="flex space-x-4 text-white/80">
+              <button className="bg-blue-600 hover:shadow-lg text-white px-4 py-2 rounded transition-shadow duration-300">
+                Theme
+              </button>
+            </nav>
+          </div>
+        </header>
         {children}
       </body>
     </html>

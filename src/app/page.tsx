@@ -1,11 +1,23 @@
-import ConstructorStandings from "@/components/Constructors/ConstructorList"
-import DriverStandings from "@/components/Drivers/DriverList"
+import StandingsContainer from "@/components/StandingsContainer"
 
-export default function HomePage() {
+async function getDriverStandings() {
+  const res = await fetch("https://api.jolpi.ca/ergast/f1/2025/driverstandings/", { cache: "no-store" })
+  const data = await res.json()
+  return data?.MRData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings || []
+}
+
+async function getConstructorStandings() {
+  const res = await fetch("https://api.jolpi.ca/ergast/f1/2025/constructorstandings/", { cache: "no-store" })
+  const data = await res.json()
+  return data?.MRData?.StandingsTable?.StandingsLists?.[0]?.ConstructorStandings || []
+}
+
+export default async function HomePage() {
+  const driverStandings = await getDriverStandings()
+  const constructorStandings = await getConstructorStandings()
   return (
-    <main className="min-h-screen bg-black text-white p-6">
-      <h1 className="text-4xl font-bold mb-6">F1 Dashboard</h1>
-      <DriverStandings />
+    <main>
+      <StandingsContainer initialDriverStandings={driverStandings} initialConstructorStandings={constructorStandings} />
     </main>
   )
 }

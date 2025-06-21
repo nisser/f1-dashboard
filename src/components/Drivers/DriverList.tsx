@@ -1,50 +1,41 @@
-export default async function DriverStandings() {
-    try {
-        const res = await fetch("https://api.jolpi.ca/ergast/f1/2025/driverstandings/", {
-            next: { revalidate: 3600 }, // cache for 1 hour
-        })
+'use client'
 
-        if (!res.ok) {
-            throw new Error("Failed to fetch driver standings")
-        }
+import DriverCard from "./DriverCard"
 
-        const data = await res.json()
+type DriverInfo = {
+  position: string
+  points: string
+  Driver: {
+    driverId: string
+    givenName: string
+    familyName: string
+  }
+}
 
-        const standings =
-            data?.MRData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings || []
+type DriverListProps = {
+  initialDriverStandings?: DriverInfo[]
+}
 
-        return (
-            <section className="p-6 bg-gray-900 rounded-lg w-full max-w-xs ml-auto">
-                <h2 className="text-2xl font-bold mb-4">Driver Standings</h2>
-                <ul className="space-y-3">
-                    {standings.length > 0 ? (
-                        standings.map((driverStanding: any, index: number) => {
-                            const driver = driverStanding.Driver
-                            return (
-                                <li
-                                    key={driver.driverId}
-                                    className="bg-gray-900 rounded-lg p-4 text-white flex justify-between"
-                                >
-                                    <span>
-                                        {index + 1}. {driver.givenName} {driver.familyName}
-                                    </span>
-                                    <span className="text-gray-400">Points: {driverStanding.points}</span>
-                                </li>
-                            )
-                        })
-                    ) : (
-                        <li className="text-white">No standings available.</li>
-                    )}
-                </ul>
-            </section>
-        )
-    } catch (error) {
-        console.error("Error fetching driver standings:", error)
-        return (
-            <section className="p-6 text-white">
-                <h2 className="text-2xl font-bold mb-4">Driver Standings</h2>
-                <p>Could not load data. Try again later.</p>
-            </section>
-        )
-    }
+export default function DriverStandings({ initialDriverStandings = [] }: DriverListProps) {
+  if (!initialDriverStandings.length) {
+    return <div className="text-red-500">No driver standings available.</div>
+  }
+
+  return (
+    <section>
+      <ul className="space-y-2">
+        {initialDriverStandings.map((entry) => (
+          <li key={entry.Driver.driverId}>
+            <DriverCard
+              driverId={entry.Driver.driverId}
+              givenName={entry.Driver.givenName}
+              familyName={entry.Driver.familyName}
+              position={entry.position}
+              points={entry.points}
+            />
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
 }

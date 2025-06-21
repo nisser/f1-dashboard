@@ -1,8 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --mclaren: #FF8000;
+  --mercedes: #27F4D2;
+  --ferrari: #E80002;
+  --redbull: #3671C6;
+  --williams: #64C4FF;
+  --haas: #B6BABD;
+  --racingbulls: #6692FF;
+  --astonmartin: #229971;
+  --kicksauber: #52E252;
+  --alpine: #0093CC;
+
+  --background: var(--redbull);
+  --foreground: #ffffff;
 }
 
 @theme inline {
@@ -10,13 +21,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {

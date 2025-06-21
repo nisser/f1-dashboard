@@ -1,1 +1,0 @@
-// TODO: Make individual constructor cards
