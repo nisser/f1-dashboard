@@ -8,8 +8,12 @@ export default function StandingsContainer({ initialDriverStandings = [], initia
   const [activeTab, setActiveTab] = useState('drivers')
 
   return (
-    <section className="p-4">
-      <div className="inline-flex bg-gray-800 rounded-lg p-1 mb-6">
+    <section
+      className="sticky top-24 right-0 ml-auto h-1/2 w-full md:w-1/3 max-h-[50vh] overflow-y-auto p-4 rounded-lg shadow-lg
+        bg-black/40 backdrop-blur-md border border-white/20"
+      style={{ position: 'sticky' }}
+    >
+      <div className="inline-flex bg-gray-800/60 backdrop-blur rounded-lg p-1 mb-6">
         {['drivers', 'constructors'].map((tab) => (
           <button
             key={tab}
