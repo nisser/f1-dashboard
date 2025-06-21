@@ -16,6 +16,7 @@ type DriverInfo = {
     driverId: string
     givenName: string
     familyName: string
+    nationality: string
   }
   Constructors: Constructor[]
 }
@@ -40,6 +41,7 @@ export default function DriverStandings({ initialDriverStandings = [] }: DriverL
                             position={entry.position}
                             points={entry.points}
                             teamName={entry.Constructors?.[0]?.name ?? "Unknown Team"}
+                            nationality={entry.Driver.nationality}
                         />
                     </li>
                 ))}

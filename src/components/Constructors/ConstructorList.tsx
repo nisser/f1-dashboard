@@ -26,7 +26,6 @@ export default function ConstructorStandings({ initialConstructorStandings = [] 
         {initialConstructorStandings.map((entry) => (
           <li key={entry.Constructor.constructorId}>
             <ConstructorCard
-              constructorId={entry.Constructor.constructorId}
               name={entry.Constructor.name}
               position={entry.position}
               points={entry.points}
