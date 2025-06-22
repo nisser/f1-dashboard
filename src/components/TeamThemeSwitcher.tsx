@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const teams = [
   'mclaren',
@@ -14,6 +15,21 @@ const teams = [
   'kicksauber',
   'alpine',
 ]
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: { opacity: 1, y: 0 },
+}
 
 export default function TeamThemeSwitcher() {
   const [activeTeam, setActiveTeam] = useState('mclaren')
@@ -29,7 +45,6 @@ export default function TeamThemeSwitcher() {
   }
 
   useEffect(() => {
-    // Close dropdown on outside click
     const handleClick = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setOpen(false)
@@ -40,7 +55,6 @@ export default function TeamThemeSwitcher() {
   }, [])
 
   useEffect(() => {
-    // Preload all team logos once on mount
     teams.forEach((team) => {
       const img = new Image()
       img.src = `/team-logos/${team}.svg`
@@ -50,7 +64,7 @@ export default function TeamThemeSwitcher() {
   return (
     <div className="relative" ref={dropdownRef}>
       <button
-        className="w-9 h-9 rounded-full text-white bg-gray-700 hover:bg-gray-600 flex items-center justify-center transition-all"
+        className="w-12 h-12 rounded-full text-white bg-black/30 hover:bg-black/60 flex items-center justify-center transition-all"
         onClick={() => setOpen((v) => !v)}
       >
         <img
@@ -59,25 +73,36 @@ export default function TeamThemeSwitcher() {
           className="w-6 h-6 object-contain"
         />
       </button>
-      {open && (
-        <div className="absolute left-0 mt-2 bg-gray-800 rounded shadow-lg z-50">
-          {teams.map((team) => (
-            <button
-              key={team}
-              onClick={() => applyTheme(team)}
-              className={`flex items-center gap-2 w-full px-4 py-2 text-white text-sm hover:bg-gray-700 transition-all ${activeTeam === team ? 'font-bold bg-gray-700' : ''
-                }`}
-              style={{ backgroundColor: activeTeam === team ? `var(--${team})` : undefined }}
-            >
-              <img
-                src={`/team-logos/${team}.svg`}
-                alt={`${team} logo`}
-                className="w-5 h-5 object-contain"
-              />
-            </button>
-          ))}
-        </div>
-      )}
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={containerVariants}
+            className="absolute top-full left-1/2 -translate-x-1/2 -translate-y-1 mt-2 flex flex-col gap-2 rounded-full bg-black/30 shadow-xl z-50 px-1 py-1"
+          >
+            {teams
+              .filter((team) => team !== activeTeam)
+              .map((team) => (
+                <motion.button
+                  key={team}
+                  onClick={() => applyTheme(team)}
+                  variants={itemVariants}
+                  className="w-10 h-10 rounded-full flex items-center justify-center hover:ring-2 ring-white"
+                  style={{ backgroundColor: `var(--${team})` }}
+                >
+                  <img
+                    src={`/team-logos/${team}.svg`}
+                    alt={team}
+                    className="w-6 h-6 object-contain"
+                  />
+                </motion.button>
+              ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
