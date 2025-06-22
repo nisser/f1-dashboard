@@ -1,3 +1,4 @@
+// import RaceMap from "@/components/Map/RaceMap"
 import StandingsContainer from "@/components/StandingsContainer"
 
 async function getDriverStandings() {
@@ -18,6 +19,7 @@ export default async function HomePage() {
   return (
     <main>
       <StandingsContainer initialDriverStandings={driverStandings} initialConstructorStandings={constructorStandings} />
+      {/* <RaceMap lat={51.505} lon={-0.09} name="London" /> */}
     </main>
   )
 }

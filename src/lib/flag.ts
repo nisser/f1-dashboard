@@ -1,5 +1,3 @@
-// src/lib/flag.ts
-
 const nationalityToISO: Record<string, string> = {
   american: "us",
   argentine: "ar",

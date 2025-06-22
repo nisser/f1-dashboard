@@ -39,27 +39,41 @@ export default function TeamThemeSwitcher() {
     return () => document.removeEventListener('mousedown', handleClick)
   }, [])
 
+  useEffect(() => {
+    // Preload all team logos once on mount
+    teams.forEach((team) => {
+      const img = new Image()
+      img.src = `/team-logos/${team}.svg`
+    })
+  }, [])
+
   return (
     <div className="relative" ref={dropdownRef}>
       <button
-        className="px-4 py-2 rounded-md text-white text-sm bg-gray-700 hover:bg-gray-600 transition-all"
+        className="w-9 h-9 rounded-full text-white bg-gray-700 hover:bg-gray-600 flex items-center justify-center transition-all"
         onClick={() => setOpen((v) => !v)}
       >
-        {activeTeam.charAt(0).toUpperCase() + activeTeam.slice(1)}
-        <span className="ml-2">▼</span>
+        <img
+          src={`/team-logos/${activeTeam}.svg`}
+          alt={`${activeTeam} logo`}
+          className="w-6 h-6 object-contain"
+        />
       </button>
       {open && (
-        <div className="absolute left-0 mt-2 w-40 bg-gray-800 rounded shadow-lg z-50">
+        <div className="absolute left-0 mt-2 bg-gray-800 rounded shadow-lg z-50">
           {teams.map((team) => (
             <button
               key={team}
               onClick={() => applyTheme(team)}
-              className={`block w-full text-left px-4 py-2 text-white text-sm hover:bg-gray-700 transition-all ${
-                activeTeam === team ? 'font-bold bg-gray-700' : ''
-              }`}
+              className={`flex items-center gap-2 w-full px-4 py-2 text-white text-sm hover:bg-gray-700 transition-all ${activeTeam === team ? 'font-bold bg-gray-700' : ''
+                }`}
               style={{ backgroundColor: activeTeam === team ? `var(--${team})` : undefined }}
             >
-              {team.charAt(0).toUpperCase() + team.slice(1)}
+              <img
+                src={`/team-logos/${team}.svg`}
+                alt={`${team} logo`}
+                className="w-5 h-5 object-contain"
+              />
             </button>
           ))}
         </div>

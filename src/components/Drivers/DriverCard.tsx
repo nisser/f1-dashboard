@@ -37,25 +37,31 @@ export default function DriverCard({ givenName, familyName, position, points, te
         className="p-2 relative z-10 text-white transition-colors duration-200"
       >
         <div className="flex items-center justify-between space-x-2">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center">
             <span
               className={`flex items-center justify-center aspect-square w-6 h-6 rounded-full font-bold text-xs text-white ${getPositionColor(position)}`}
               style={{ minWidth: '1.5rem', minHeight: '1.5rem' }}
             >
               {position}
             </span>
-            <div className="flex flex-row items-center">
-              <h3 className="text-base font-semibold">
-                {givenName} {familyName}
-              </h3>
-              <img
-                src={getFlagUrl(nationality) ?? ''}
-                alt={`${nationality} flag`}
-                className="w-4 h-3 rounded-sm object-cover ml-2"
-                loading="lazy"
-              />
+            <div className="ml-2">
+              <div className="flex items-center space-x-1">
+                <h3 className="text-base font-semibold">
+                  {givenName} {familyName}
+                </h3>
+                {getFlagUrl(nationality) && (
+                  <img
+                    src={getFlagUrl(nationality) ?? ''}
+                    alt={`${nationality} flag`}
+                    className="w-4 h-3 rounded-sm object-cover"
+                    loading="lazy"
+                  />
+                )}
+              </div>
+              <p className="text-[10px] text-gray-300">{teamName}</p>
             </div>
           </div>
+
           <div>
             <span className="font-bold text-sm text-white">{points}</span>
             <p className="text-[10px] text-gray-300 text-right">pts.</p>

@@ -10,7 +10,7 @@ export default function StandingsContainer({ initialDriverStandings = [], initia
   return (
     <section
       className="sticky top-24 right-0 ml-auto h-1/2 w-full md:w-1/3 max-h-[50vh] overflow-y-auto p-4 rounded-lg shadow-lg
-        bg-black/40 backdrop-blur-md border border-white/20"
+        bg-black/40 backdrop-blur-md"
       style={{ position: 'sticky' }}
     >
       <div className="inline-flex bg-gray-800/60 backdrop-blur rounded-lg p-1 mb-6">
