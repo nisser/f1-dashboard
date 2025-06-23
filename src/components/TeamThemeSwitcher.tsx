@@ -64,7 +64,7 @@ export default function TeamThemeSwitcher() {
   return (
     <div className="relative" ref={dropdownRef}>
       <button
-        className="w-12 h-12 rounded-full text-white bg-black/30 hover:bg-black/60 flex items-center justify-center transition-all"
+        className="w-12 h-12 rounded-full bg-black/30 hover:bg-black/60 flex items-center justify-center transition-all"
         onClick={() => setOpen((v) => !v)}
       >
         <img
@@ -90,8 +90,11 @@ export default function TeamThemeSwitcher() {
                   key={team}
                   onClick={() => applyTheme(team)}
                   variants={itemVariants}
-                  className="w-10 h-10 rounded-full flex items-center justify-center hover:ring-2 ring-white"
-                  style={{ backgroundColor: `var(--${team})` }}
+                  className="w-10 h-10 rounded-full flex items-center justify-center hover:ring-2 ring-white/60"
+                  style={{
+                    backgroundColor:
+                      team === 'mclaren' ? '#ffffff' : `var(--${team})`,
+                  }}
                 >
                   <img
                     src={`/team-logos/${team}.svg`}
