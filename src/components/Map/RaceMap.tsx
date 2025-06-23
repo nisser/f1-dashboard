@@ -1,29 +1,48 @@
-'use client'
+'use client';
 
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import 'leaflet/dist/leaflet.css'
+import { useEffect, useRef } from "react";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
-type RaceMapProps = {
-    lat: number
-    lon: number
-    name: string
-}
+export default function RaceMap() {
+    const mapRef = useRef<HTMLDivElement | null>(null);
+    const leafletMap = useRef<L.Map | null>(null);
 
-const position = [51.505, -0.09]
+    useEffect(() => {
+        if (mapRef.current && !leafletMap.current) {
+            leafletMap.current = L.map(mapRef.current, {
+                zoomControl: false,
+            }).setView([51.505, -0.09], 13);
 
-export default function RaceMap({ lat, lon, name }: RaceMapProps) {
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            }).addTo(leafletMap.current);
+        }
+
+        // Force map to recalc size after a tick
+        setTimeout(() => {
+            leafletMap.current?.invalidateSize();
+        }, 0);
+
+        return () => {
+            if (leafletMap.current) {
+                leafletMap.current.remove();
+                leafletMap.current = null;
+            }
+        };
+    }, []);
+
     return (
-        <div className="h-64 w-full rounded-lg overflow-hidden">
-            <MapContainer>
-                <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Marker position={position}>
-                    <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                </Marker>
-            </MapContainer>
-        </div>
-    )
+        <section
+            className="md:fixed md:right-0 md:bottom-0 ml-auto
+            h-[calc(50vh-40px)] w-full md:w-1/3 overflow-y-auto p-2
+            rounded-lg shadow-lg bg-black/40 backdrop-blur-md mr-[4px] mb-[4px]
+            border-[4px] border border-transparent md:border-0"
+        >
+            <div
+                ref={mapRef}
+                className="w-full h-full rounded-xl"
+            />
+        </section>
+    );
 }

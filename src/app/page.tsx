@@ -1,5 +1,6 @@
-// import RaceMap from "@/components/Map/RaceMap"
 import StandingsContainer from "@/components/StandingsContainer"
+import MapWrapper from '@/components/Map/MapWrapper'
+import RaceMap from "@/components/Map/RaceMap"
 
 async function getDriverStandings() {
   const res = await fetch("https://api.jolpi.ca/ergast/f1/2025/driverstandings/", { cache: "no-store" })
@@ -19,7 +20,7 @@ export default async function HomePage() {
   return (
     <main>
       <StandingsContainer initialDriverStandings={driverStandings} initialConstructorStandings={constructorStandings} />
-      {/* <RaceMap lat={51.505} lon={-0.09} name="London" /> */}
+      <MapWrapper />
     </main>
   )
 }
