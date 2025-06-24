@@ -14,8 +14,8 @@ export default function RaceMap() {
                 zoomControl: false,
             }).setView([51.505, -0.09], 13);
 
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics, and the GIS community',
             }).addTo(leafletMap.current);
         }
 
@@ -36,8 +36,8 @@ export default function RaceMap() {
         <section
             className="md:fixed md:right-0 md:bottom-0 ml-auto
             h-[calc(50vh-40px)] w-full md:w-1/3 overflow-y-auto p-2
-            rounded-lg shadow-lg bg-black/40 backdrop-blur-md mr-[4px] mb-[4px]
-            border-[4px] border border-transparent md:border-0"
+            rounded-lg shadow-lg bg-black/40 mr-[4px] mb-[4px]
+            border-[4px] md:border-0 mt-[4px]"
         >
             <div
                 ref={mapRef}

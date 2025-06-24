@@ -34,7 +34,7 @@ export default function DriverCard({ givenName, familyName, position, points, te
       className="relative rounded-lg overflow-hidden"
     >
       <div
-        className="p-2 relative z-10 text-white transition-colors duration-200"
+        className="p-2 relative z-10 text-white transition-colors duration-200 bg-black/25"
       >
         <div className="flex items-center justify-between space-x-2">
           <div className="flex items-center">
@@ -68,7 +68,6 @@ export default function DriverCard({ givenName, familyName, position, points, te
           </div>
         </div>
       </div>
-      <div className="absolute inset-0 bg-black opacity-25 z-0 pointer-events-none rounded-lg" />
     </motion.div>
   )
 }

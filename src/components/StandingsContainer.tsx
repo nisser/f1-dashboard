@@ -11,8 +11,7 @@ export default function StandingsContainer({ initialDriverStandings = [], initia
     <section
       className="md:fixed md:right-0 ml-auto
       h-[calc(50vh-40px)] w-full md:w-1/3 overflow-y-auto p-2
-      rounded-lg shadow-lg bg-black/40 backdrop-blur-md mr-[4px] mt-[4px]
-      border-[4px] border border-transparent md:border-0"
+      rounded-lg shadow-lg bg-black/40 mr-[4px] mt-[4px] md:border-0"
     >
       <div className="inline-flex bg-gray-800/60 backdrop-blur rounded-lg p-1 mb-6">
         {['drivers', 'constructors'].map((tab) => (
@@ -29,7 +28,7 @@ export default function StandingsContainer({ initialDriverStandings = [], initia
         ))}
       </div>
 
-      <div className="text-white">
+      <div>
         {activeTab === 'drivers' ? (
           <DriverList initialDriverStandings={initialDriverStandings} />
         ) : (

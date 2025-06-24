@@ -54,13 +54,6 @@ export default function TeamThemeSwitcher() {
     return () => document.removeEventListener('mousedown', handleClick)
   }, [])
 
-  useEffect(() => {
-    teams.forEach((team) => {
-      const img = new Image()
-      img.src = `/team-logos/${team}.svg`
-    })
-  }, [])
-
   return (
     <div className="relative" ref={dropdownRef}>
       <button
