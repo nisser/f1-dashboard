@@ -27,13 +27,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <header className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50 shadow-md">
+        <header className="sticky top-0 z-50 bg-slate-900/70 backdrop-blur-[3px] shadow-md">
           <div className="flex items-center justify-between px-4 py-2">
             <h1 className="text-xl font-bold text-white">F1 Dashboard</h1>
             <TeamThemeSwitcher />
           </div>
         </header>
-        <div className="border-8 border-transparent rounded-xl min-h-screen md:border-0">
+        <div>
           {children}
         </div>
       </body>

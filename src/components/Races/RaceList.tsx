@@ -23,7 +23,7 @@ type Props = {
 
 export default function RaceList({ races }: Props) {
   return (
-    <section className="flex flex-col gap-2 w-2/3">
+    <section className="flex flex-col gap-2 w-2/3 m-1 pr-[0.6rem]">
       {races.map((race) => (
         <RaceCard key={race.round} race={race} />
       ))}

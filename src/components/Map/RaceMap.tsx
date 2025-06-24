@@ -34,14 +34,12 @@ export default function RaceMap() {
 
     return (
         <section
-            className="md:fixed md:right-0 md:bottom-0 ml-auto
-            h-[calc(50vh-40px)] w-full md:w-1/3 overflow-y-auto p-2
-            rounded-lg shadow-lg bg-black/40 mr-[4px] mb-[4px]
-            border-[4px] md:border-0 mt-[4px]"
+            className="side-panel"
         >
             <div
                 ref={mapRef}
                 className="w-full h-full rounded-xl"
+                style={{ backgroundColor: '#333' }}
             />
         </section>
     );

@@ -8,11 +8,7 @@ export default function StandingsContainer({ initialDriverStandings = [], initia
   const [activeTab, setActiveTab] = useState('drivers')
 
   return (
-    <section
-      className="md:fixed md:right-0 ml-auto
-      h-[calc(50vh-40px)] w-full md:w-1/3 overflow-y-auto p-2
-      rounded-lg shadow-lg bg-black/40 mr-[4px] mt-[4px] md:border-0"
-    >
+    <section className="side-panel">
       <div className="inline-flex bg-gray-800/60 backdrop-blur rounded-lg p-1 mb-6">
         {['drivers', 'constructors'].map((tab) => (
           <button

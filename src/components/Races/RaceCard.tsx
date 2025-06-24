@@ -18,7 +18,7 @@ export default function RaceCard({ race }: RaceCardProps) {
   const date = new Date(`${race.date}T${race.date || '00:00:00Z'}`)
 
   return (
-    <div className="p-4 rounded-xl bg-black/25 border border-white/10 shadow-md">
+    <div className="p-4 rounded-xl bg-black/25 shadow-md">
       <h2 className="text-xl font-bold">{race.raceName}</h2>
       <p className="text-sm">
         Round {race.round} &mdash; {race.Circuit.circuitName}
@@ -35,7 +35,7 @@ export default function RaceCard({ race }: RaceCardProps) {
       </p>
       <a
         href={race.url}
-        className="text-sm text-blue-400 underline mt-2 inline-block"
+        className="text-sm text-blue-400 underline inline-block"
         target="_blank"
       >
         More info
