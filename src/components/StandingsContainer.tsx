@@ -1,23 +1,45 @@
 'use client'
 
-import { useState } from 'react'
-import DriverList from '@/components/Drivers/DriverList'
-import ConstructorList from '@/components/Constructors/ConstructorList'
+import { useState, useRef, useEffect } from 'react'
+import DriverList from "./Drivers/DriverList"
+import ConstructorList from "./Constructors/ConstructorList"
 
 export default function StandingsContainer({ initialDriverStandings = [], initialConstructorStandings = [] }) {
-  const [activeTab, setActiveTab] = useState('drivers')
+  const [activeTab, setActiveTab] = useState<'drivers' | 'constructors'>('drivers')
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [highlightStyle, setHighlightStyle] = useState<{ left: number; width: number }>({ left: 0, width: 0 })
+
+  useEffect(() => {
+    if (!containerRef.current) return
+    const buttons = containerRef.current.querySelectorAll('button')
+    const activeIndex = activeTab === 'drivers' ? 0 : 1
+    const activeButton = buttons[activeIndex] as HTMLElement
+    if (activeButton) {
+      setHighlightStyle({ left: activeButton.offsetLeft, width: activeButton.offsetWidth })
+    }
+  }, [activeTab])
 
   return (
     <section className="side-panel">
-      <div className="inline-flex bg-gray-800/60 backdrop-blur rounded-lg p-1 mb-6">
+      <div
+        ref={containerRef}
+        className="inline-flex bg-black/25 mb-2 rounded-full relative select-none"
+        style={{ position: 'relative' }}
+      >
+        <div
+          className="absolute top-0 bottom-0 bg-black/50 rounded-full transition-all duration-300"
+          style={{
+            left: highlightStyle.left,
+            width: highlightStyle.width,
+          }}
+        />
         {['drivers', 'constructors'].map((tab) => (
           <button
             key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 rounded-md transition-all duration-300 text-sm font-medium ${activeTab === tab
-              ? 'bg-blue-600 text-white'
-              : 'text-gray-300 hover:text-white'
-              }`}
+            onClick={() => setActiveTab(tab as 'drivers' | 'constructors')}
+            className={`relative z-10 p-2 text-sm font-medium transition-colors duration-300 ${
+              activeTab === tab ? 'text-white' : 'text-gray-300 hover:text-white'
+            } rounded-full`}
           >
             {tab.charAt(0).toUpperCase() + tab.slice(1)}
           </button>
