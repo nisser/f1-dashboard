@@ -29,7 +29,6 @@ export default function DriverCard({ givenName, familyName, position, points, te
   return (
     <motion.div
       whileHover={{ scale: 1.01, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)' }}
-      whileTap={{ scale: 0.99 }}
       transition={{ type: 'spring', stiffness: 600, damping: 40 }}
       className="relative rounded-lg overflow-hidden"
     >
