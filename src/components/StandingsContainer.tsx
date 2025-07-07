@@ -27,7 +27,7 @@ export default function StandingsContainer({ initialDriverStandings = [], initia
         style={{ position: 'relative' }}
       >
         <div
-          className="absolute top-0 bottom-0 bg-black/50 rounded-full transition-all duration-300"
+          className="absolute top-0 bottom-0 bg-black/25 rounded-full transition-all duration-300"
           style={{
             left: highlightStyle.left,
             width: highlightStyle.width,
