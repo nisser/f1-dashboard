@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { ChevronDown, MapPin } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { getFlagUrl } from "@/lib/flag"
+import { useMapStore } from '@/lib/mapStore'
 
 type RaceCardProps = {
   race: {
@@ -17,6 +18,8 @@ type RaceCardProps = {
       Location: {
         locality: string
         country: string
+        lat: number
+        long: number
       }
     }
   }
@@ -24,9 +27,8 @@ type RaceCardProps = {
 
 export default function RaceCard({ race }: RaceCardProps) {
   const [expanded, setExpanded] = useState(false)
-
+  const { setFocus } = useMapStore()
   const date = new Date(`${race.date}T${race.time || '00:00:00Z'}`)
-  console.log("race.date: " + race.date + " race.time: " + race.time)
 
   return (
     <motion.div
@@ -78,13 +80,14 @@ export default function RaceCard({ race }: RaceCardProps) {
         {/* Expandable content */}
         <div className={`flex transition-all duration-300 overflow-hidden ${expanded ? 'max-h-40 mt-2' : 'max-h-0'}`} >
           <p className="text-xs text-gray-300">
-            1. Driver <br/> 2. Driver <br/> 3. Driver 
+            1. Driver <br /> 2. Driver <br /> 3. Driver
           </p>
           <div className='flex flex-row items-end ml-auto p-1'>
             <a
               href={race.url}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
               className="inline-block p-0.5 bg-white text-black rounded-md hover:bg-gray-400 transition"
             >
               <img
@@ -93,9 +96,18 @@ export default function RaceCard({ race }: RaceCardProps) {
                 className="w-6 h-6"
               />
             </a>
-            <div className="inline-block p-0.5 ml-2 bg-white text-black rounded-md hover:bg-gray-400 transition">
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setFocus({
+                  lat: race.Circuit.Location.lat,
+                  long: race.Circuit.Location.long,
+                })
+              }}
+              className="inline-block p-0.5 ml-2 bg-white text-black rounded-md hover:bg-gray-400 transition"
+            >
               <MapPin className="w-6 h-6 text-black" />
-            </div>
+            </button>
           </div>
         </div>
       </div>
@@ -103,4 +115,4 @@ export default function RaceCard({ race }: RaceCardProps) {
   )
 }
 
-// TODO: Fastest Lap, top 20? Albert Park Circuit, Melbourne
+// TODO: Fastest Lap, top 20?
