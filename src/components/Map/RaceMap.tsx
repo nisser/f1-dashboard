@@ -48,8 +48,8 @@ export default function RaceMap({ circuitLocations }: { circuitLocations: Circui
             // Create markers
             markersRef.current = locations.map(({ lat, long, locality, country }) => {
                 const marker = L.circleMarker([lat, long], {
-                    radius: 2,
-                    color: '#ddd',
+                    radius: 4,
+                    color: '#000',
                     fillColor: '#fff',
                     fillOpacity: 1,
                     weight: 1,
@@ -57,8 +57,8 @@ export default function RaceMap({ circuitLocations }: { circuitLocations: Circui
 
                 marker.bindPopup(`${locality}, ${country}`, {
                     closeButton: false,
-                    offset: L.point(0, -6),
-                    className: 'custom-popup',
+                    offset: L.point(0, 0),
+                    autoPan: false,
                 });
 
                 marker.on('click', () => {
