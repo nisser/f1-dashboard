@@ -60,7 +60,6 @@ export default function DriverCard({ givenName, familyName, position, points, te
               <p className="text-[10px] text-gray-300">{teamName}</p>
             </div>
           </div>
-
           <div>
             <span className="font-bold text-sm text-white">{points}</span>
             <p className="text-[10px] text-gray-300 text-right">pts.</p>
