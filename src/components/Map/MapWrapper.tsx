@@ -1,20 +1,12 @@
-'use client';
+'use client'
 
-import dynamic from 'next/dynamic';
+import dynamic from 'next/dynamic'
+import type { CircuitLocation } from '@/lib/types'
 
-const RaceMap = dynamic(() => import('./RaceMap'), { ssr: false });
+const RaceMap = dynamic(() => import('./RaceMap'), { ssr: false })
 
-const MapWrapper = ({
-    circuitLocations,
-}: {
-    circuitLocations: {
-        lat: string;
-        long: string;
-        locality: string;
-        country: string;
-    }[];
-}) => {
-    return <RaceMap circuitLocations={circuitLocations} />;
-};
+const MapWrapper = ({ circuitLocations }: { circuitLocations: CircuitLocation[] }) => {
+  return <RaceMap circuitLocations={circuitLocations} />
+}
 
-export default MapWrapper;
+export default MapWrapper

@@ -8,7 +8,6 @@ export default async function HomePage() {
     driverStandings,
     constructorStandings,
     races,
-    results,
   } = await fetchInitialF1Data(2025)
 
   return (
@@ -19,8 +18,8 @@ export default async function HomePage() {
           circuitLocations={(races as {
             Circuit: {
               Location: {
-                lat: string;
-                long: string;
+                lat: number;
+                long: number;
                 locality: string;
                 country: string;
               };

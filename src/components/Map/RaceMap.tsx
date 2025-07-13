@@ -4,13 +4,7 @@ import { useEffect, useRef } from "react"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
 import { useMapStore } from "@/lib/mapStore"
-
-type CircuitLocation = {
-  lat: string
-  long: string
-  locality: string
-  country: string
-}
+import { CircuitLocation } from "@/lib/types"
 
 export default function RaceMap({ circuitLocations }: { circuitLocations: CircuitLocation[] }) {
     const mapRef = useRef<HTMLDivElement | null>(null)
@@ -19,8 +13,8 @@ export default function RaceMap({ circuitLocations }: { circuitLocations: Circui
     const { focus } = useMapStore()
 
     const locations = circuitLocations.map((location) => ({
-        lat: parseFloat(location.lat),
-        long: parseFloat(location.long),
+        lat: location.lat,
+        long: location.long,
         locality: location.locality,
         country: location.country,
     }))

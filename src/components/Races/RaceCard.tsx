@@ -5,27 +5,9 @@ import { ChevronDown, MapPin } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { getFlagUrl } from "@/lib/flag"
 import { useMapStore } from '@/lib/mapStore'
+import { Race } from "@/lib/types"
 
-type RaceCardProps = {
-  race: {
-    raceName: string
-    date: string
-    time: string
-    round: string
-    url: string
-    Circuit: {
-      circuitName: string
-      Location: {
-        locality: string
-        country: string
-        lat: number
-        long: number
-      }
-    }
-  }
-}
-
-export default function RaceCard({ race }: RaceCardProps) {
+export default function RaceCard({ race }: { race: Race }) {
   const [expanded, setExpanded] = useState(false)
   const { setFocus } = useMapStore()
   const date = new Date(`${race.date}T${race.time || '00:00:00Z'}`)
