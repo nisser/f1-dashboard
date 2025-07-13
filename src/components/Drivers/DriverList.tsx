@@ -40,7 +40,7 @@ export default function DriverStandings({ initialDriverStandings = [] }: DriverL
                             familyName={entry.Driver.familyName}
                             position={entry.position}
                             points={entry.points}
-                            teamName={entry.Constructors?.[0]?.name ?? "Unknown Team"}
+                            teamName={entry.Constructors?.[entry.Constructors.length - 1]?.name ?? "Unknown Team"}
                             nationality={entry.Driver.nationality}
                         />
                     </li>
