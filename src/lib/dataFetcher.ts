@@ -6,7 +6,7 @@ export async function fetchAllRaceResults(season: number) {
   const limit = 100
 
   while (true) {
-    const res = await fetch(`https://api.jolpi.ca/ergast/f1/${season}/results.json?limit=${limit}&offset=${offset}`)
+    const res = await fetch(`https://api.jolpi.ca/ergast/f1/${season}/results.json?limit=${limit}&offset=${offset}`, { cache: 'force-cache' })
     const data = await res.json()
 
     const races = data?.MRData?.RaceTable?.Races || []
@@ -27,8 +27,8 @@ export async function fetchAllRaceResults(season: number) {
 
 export async function fetchInitialF1Data(season: number = 2025) {
   const [driversRes, constructorsRes, results] = await Promise.all([
-    fetch(`https://api.jolpi.ca/ergast/f1/${season}/driverstandings/`),
-    fetch(`https://api.jolpi.ca/ergast/f1/${season}/constructorstandings/`),
+    fetch(`https://api.jolpi.ca/ergast/f1/${season}/driverstandings/`, { cache: 'force-cache' }),
+    fetch(`https://api.jolpi.ca/ergast/f1/${season}/constructorstandings/`, { cache: 'force-cache' }),
     fetchAllRaceResults(season),
   ])
 
@@ -43,7 +43,7 @@ export async function fetchInitialF1Data(season: number = 2025) {
     raceResultsMap.set(key, res)
   }
 
-  const allRacesRes = await fetch(`https://api.jolpi.ca/ergast/f1/${season}.json`)
+  const allRacesRes = await fetch(`https://api.jolpi.ca/ergast/f1/${season}.json`, { cache: 'force-cache' })
   const allRacesData = await allRacesRes.json()
   const races: Race[] = allRacesData?.MRData?.RaceTable?.Races || []
 

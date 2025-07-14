@@ -1,14 +1,20 @@
 'use client'
 
-import { useState } from 'react'
 import { ChevronDown, MapPin } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { getFlagUrl } from "@/lib/flag"
 import { useMapStore } from '@/lib/mapStore'
 import { Race } from "@/lib/types"
 
-export default function RaceCard({ race }: { race: Race }) {
-  const [expanded, setExpanded] = useState(false)
+export default function RaceCard({
+  race,
+  isExpanded,
+  onToggle,
+}: {
+  race: Race
+  isExpanded: boolean
+  onToggle: () => void
+}) {
   const { setFocus } = useMapStore()
   const date = new Date(`${race.date}T${race.time || '00:00:00Z'}`)
 
@@ -18,12 +24,12 @@ export default function RaceCard({ race }: { race: Race }) {
       whileTap={{ scale: 0.99 }}
       transition={{ type: 'spring', stiffness: 600, damping: 40 }}
       className="p-1 rounded-lg bg-black/25 shadow-md overflow-hidden"
-      onClick={() => setExpanded((prev) => !prev)}
+      onClick={onToggle}
     >
       <div className="flex justify-between items-center mb-1">
         <div className="flex items-center gap-2 pl-1">
           <span className={`inline-block bg-black/25 font-semibold rounded-md transition-all duration-300
-            ${expanded ? 'px-3 py-1.5 text-md' : 'px-1.5 py-0.5 text-sm'}`}>
+            ${isExpanded ? 'px-3 py-1.5 text-md' : 'px-1.5 py-0.5 text-sm'}`}>
             R{race.round}
           </span>
           <div className="flex flex-col">
@@ -40,7 +46,7 @@ export default function RaceCard({ race }: { race: Race }) {
                 />
               )}
             </div>
-            {expanded && (
+            {isExpanded && (
               <p className="text-xs text-gray-300">
                 {race.Circuit.circuitName}, {race.Circuit.Location.locality}
               </p>
@@ -52,7 +58,7 @@ export default function RaceCard({ race }: { race: Race }) {
           <span>{date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false })}</span>
         </div>
         <motion.div
-          animate={{ rotate: expanded ? 180 : 0 }}
+          animate={{ rotate: isExpanded ? 180 : 0 }}
           transition={{ duration: 0.3 }}
         >
           <ChevronDown size={20} />
@@ -60,7 +66,7 @@ export default function RaceCard({ race }: { race: Race }) {
       </div>
 
       {/* Expandable content */}
-      <div className={`flex transition-all duration-300 overflow-hidden ${expanded ? 'max-h-40 mt-2' : 'max-h-0'}`} >
+      <div className={`flex transition-all duration-300 overflow-hidden ${isExpanded ? 'max-h-40 mt-2' : 'max-h-0'}`} >
         <p className="text-xs text-gray-300">
           1. Driver <br /> 2. Driver <br /> 3. Driver
         </p>
@@ -95,5 +101,3 @@ export default function RaceCard({ race }: { race: Race }) {
     </motion.div>
   )
 }
-
-// TODO: Fastest Lap, top 20?
