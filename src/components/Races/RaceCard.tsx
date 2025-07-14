@@ -4,14 +4,15 @@ import { ChevronDown, MapPin } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { getFlagUrl } from "@/lib/flag"
 import { useMapStore } from '@/lib/mapStore'
-import { Race } from "@/lib/types"
+import { RaceWithResults } from "@/lib/types"
+import RaceResultsTable from "@/components/Races/RaceResultsTable"
 
 export default function RaceCard({
   race,
   isExpanded,
   onToggle,
 }: {
-  race: Race
+  race: RaceWithResults
   isExpanded: boolean
   onToggle: () => void
 }) {
@@ -66,10 +67,18 @@ export default function RaceCard({
       </div>
 
       {/* Expandable content */}
-      <div className={`flex transition-all duration-300 overflow-hidden ${isExpanded ? 'max-h-40 mt-2' : 'max-h-0'}`} >
-        <p className="text-xs text-gray-300">
-          1. Driver <br /> 2. Driver <br /> 3. Driver
-        </p>
+      <div className={`flex transition-all duration-300 overflow-hidden ${isExpanded ? 'max-h-400 mt-2' : 'max-h-0'}`} >
+        <section>
+          <ul className="space-y-2">
+            {race.Results && race.Results.length > 0 ? (
+              <RaceResultsTable results={race}/>
+            ) : (
+              <li>
+                <p className="text-xs text-gray-300">No results to show.</p>
+              </li>
+            )}
+          </ul>
+        </section>
         <div className='flex flex-row items-end ml-auto p-1'>
           <a
             href={race.url}

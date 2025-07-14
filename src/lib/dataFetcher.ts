@@ -13,9 +13,16 @@ export async function fetchAllRaceResults(season: number) {
     if (races.length === 0) break
 
     for (const race of races) {
-      const key = `${race.season}-${race.round}`
+      const key = `${race.season}-${race.round}`;
       if (!allRacesMap.has(key)) {
-        allRacesMap.set(key, race)
+        allRacesMap.set(key, race);
+      } else {
+        // Merge Results arrays if race already exists
+        const existingRace = allRacesMap.get(key);
+        existingRace.Results = [
+          ...(existingRace.Results || []),
+          ...(race.Results || []),
+        ];
       }
     }
 
