@@ -64,11 +64,7 @@ This project uses the [jolpica-f1 API](https://github.com/jolpica/jolpica-f1) fo
 - `src/components/Map` - Map components
 - `src/components/Races` - Race components
 - `public/` - Static assets
-
-## Customization
-
-- To add new features or modify the UI, edit the components in `src/components/`.
-- For theming or styling, update Tailwind CSS classes or add your own styles.
+- `lib/` - Shared logic & utilities
 
 ## Contributing
 
