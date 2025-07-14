@@ -3,8 +3,14 @@
 import { useState, useRef, useEffect } from 'react'
 import DriverList from "./Drivers/DriverList"
 import ConstructorList from "./Constructors/ConstructorList"
+import { DriverInfo, ConstructorInfo } from '@/lib/types'
 
-export default function StandingsContainer({ initialDriverStandings = [], initialConstructorStandings = [] }) {
+type Props = {
+  driverStandings: DriverInfo[]
+  constructorStandings: ConstructorInfo[]
+}
+
+export default function StandingsContainer({ driverStandings, constructorStandings }: Props) {
   const [activeTab, setActiveTab] = useState<'drivers' | 'constructors'>('drivers')
   const containerRef = useRef<HTMLDivElement>(null)
   const [highlightStyle, setHighlightStyle] = useState<{ left: number; width: number }>({ left: 0, width: 0 })
@@ -48,9 +54,9 @@ export default function StandingsContainer({ initialDriverStandings = [], initia
 
       <div>
         {activeTab === 'drivers' ? (
-          <DriverList initialDriverStandings={initialDriverStandings} />
+          <DriverList driverStandings={driverStandings} />
         ) : (
-          <ConstructorList initialConstructorStandings={initialConstructorStandings} />
+          <ConstructorList constructorStandings={constructorStandings} />
         )}
       </div>
     </section>

@@ -1,51 +1,22 @@
 'use client'
 
-import DriverCard from "./DriverCard"
+import DriverCard from './DriverCard'
+import type { DriverInfo } from '@/lib/types'
 
-type Constructor = {
-  constructorId: string
-  url: string
-  name: string
-  nationality: string
-}
-
-type DriverInfo = {
-  position: string
-  points: string
-  Driver: {
-    driverId: string
-    givenName: string
-    familyName: string
-    nationality: string
+export default function DriverStandings({ driverStandings = [] }: { driverStandings: DriverInfo[] }) {
+  if (!driverStandings.length) {
+    return <div className="text-red-500">No driver standings available.</div>
   }
-  Constructors: Constructor[]
-}
 
-type DriverListProps = {
-    initialDriverStandings?: DriverInfo[]
-}
-
-export default function DriverStandings({ initialDriverStandings = [] }: DriverListProps) {
-    if (!initialDriverStandings.length) {
-        return <div className="text-red-500">No driver standings available.</div>
-    }
-
-    return (
-        <section>
-            <ul className="space-y-2">
-                {initialDriverStandings.map((entry) => (
-                    <li key={entry.Driver.driverId}>
-                        <DriverCard
-                            givenName={entry.Driver.givenName}
-                            familyName={entry.Driver.familyName}
-                            position={entry.position}
-                            points={entry.points}
-                            teamName={entry.Constructors?.[entry.Constructors.length - 1]?.name ?? "Unknown Team"}
-                            nationality={entry.Driver.nationality}
-                        />
-                    </li>
-                ))}
-            </ul>
-        </section>
-    )
+  return (
+    <section>
+      <ul className="space-y-2">
+        {driverStandings.map((driver) => (
+          <li key={driver.Driver.driverId}>
+            <DriverCard driver={driver} />
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
 }
