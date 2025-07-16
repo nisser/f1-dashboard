@@ -7,12 +7,12 @@ const teams = [
   'mclaren',
   'mercedes',
   'ferrari',
-  'redbull',
+  'red_bull',
   'williams',
   'haas',
-  'racingbulls',
-  'astonmartin',
-  'kicksauber',
+  'rb',
+  'aston_martin',
+  'sauber',
   'alpine',
 ]
 

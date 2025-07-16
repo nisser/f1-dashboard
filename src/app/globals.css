@@ -4,12 +4,12 @@
   --mclaren: #FF8000;
   --mercedes: #27F4D2;
   --ferrari: #E80002;
-  --redbull: #3671C6;
+  --red_bull: #3671C6;
   --williams: #64C4FF;
   --haas: #B6BABD;
-  --racingbulls: #6692FF;
-  --astonmartin: #229971;
-  --kicksauber: #52E252;
+  --rb: #6692FF;
+  --aston_martin: #229971;
+  --sauber: #52E252;
   --alpine: #0093CC;
 
   --background: var(--mclaren);
