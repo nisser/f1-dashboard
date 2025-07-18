@@ -1,4 +1,4 @@
-import { RaceWithResults, Race, Result, ConstructorInfo } from "./types"
+import { RaceWithResults, Race, Result, ConstructorInfo, DriverInfo } from "./types"
 
 export async function fetchAllRaceResults(season: number) {
   const allRacesMap = new Map<string, any>()
@@ -104,7 +104,7 @@ export async function fetchInitialF1Data(season: number = 2025) {
   }
 
   return {
-    driverStandings: driversData?.MRData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings || [],
+    driverStandings: (driversData?.MRData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings || []) as DriverInfo[],
     constructorStandings: mapConstructorStandings(constructorsData?.MRData?.StandingsTable?.StandingsLists?.[0]?.ConstructorStandings || []),
     races: mapRacesWithResults(races, raceResultsMap),
   }
