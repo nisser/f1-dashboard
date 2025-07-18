@@ -75,6 +75,7 @@ export type Result = {
 
 export type RaceWithResults = Race & {
     Results?: Result["Results"]
+    raceStatus: 'Completed' | 'Upcoming' | 'Next Up';
 }
 
 export type CircuitLocation = {

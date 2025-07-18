@@ -15,7 +15,7 @@ const getPositionColor = (position: string) => {
     default:
       return "bg-stone-700";
   }
-}
+}                    
 
 export default function DriverCard({ driver }: { driver: DriverInfo }) {
   return (

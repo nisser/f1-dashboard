@@ -54,6 +54,12 @@ export default function RaceCard({
             )}
           </div>
         </div>
+        <span className={`ml-2 px-2 py-0.5 rounded-full text-xs font-semibold text-gray-300
+          ${race.raceStatus === 'Completed' && 'bg-black/25'}
+          ${race.raceStatus === 'Next Up' && 'bg-green-700'}
+          ${race.raceStatus === 'Upcoming' && 'bg-blue-700'}`} >
+          {race.raceStatus}
+        </span>
         <div className="flex flex-col items-end ml-auto mr-1 text-xs text-gray-300">
           <span>{date.toLocaleDateString(undefined, { month: 'long', day: 'numeric' })}</span>
           <span>{date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false })}</span>
@@ -69,15 +75,11 @@ export default function RaceCard({
       {/* Expandable content */}
       <div className={`flex transition-all duration-300 overflow-hidden ${isExpanded ? 'max-h-400 mt-2' : 'max-h-0'}`} >
         <section>
-          <ul className="space-y-2">
-            {race.Results && race.Results.length > 0 ? (
-              <RaceResultsTable results={race}/>
-            ) : (
-              <li>
-                <p className="text-xs text-gray-300">No results to show.</p>
-              </li>
-            )}
-          </ul>
+          {race.Results && race.Results.length > 0 ? (
+            <RaceResultsTable results={race} />
+          ) : (
+            <p className="text-xs text-gray-300">No results to show.</p>
+          )}
         </section>
         <div className='flex flex-row items-end ml-auto p-1'>
           <a

@@ -33,44 +33,47 @@ export async function fetchAllRaceResults(season: number) {
 }
 
 export async function fetchInitialF1Data(season: number = 2025) {
-  const [driversRes, constructorsRes, results] = await Promise.all([
+  const [driversRes, constructorsRes, allRacesRes, results] = await Promise.all([
     fetch(`https://api.jolpi.ca/ergast/f1/${season}/driverstandings/`, { cache: 'force-cache' }),
     fetch(`https://api.jolpi.ca/ergast/f1/${season}/constructorstandings/`, { cache: 'force-cache' }),
+    fetch(`https://api.jolpi.ca/ergast/f1/${season}.json`, { cache: 'force-cache' }),
     fetchAllRaceResults(season),
   ])
 
-  const [driversData, constructorsData] = await Promise.all([
+  const [driversData, constructorsData, allRacesData] = await Promise.all([
     driversRes.json(),
     constructorsRes.json(),
+    allRacesRes.json(),
   ])
 
   const raceResultsMap = new Map<string, Result>()
+
   for (const res of results) {
     const key = `${res.season}-${res.round}`
     raceResultsMap.set(key, res)
   }
 
-  const allRacesRes = await fetch(`https://api.jolpi.ca/ergast/f1/${season}.json`, { cache: 'force-cache' })
-  const allRacesData = await allRacesRes.json()
   const races: Race[] = allRacesData?.MRData?.RaceTable?.Races || []
-
-  // Flatten Constructors
-  function mapConstructorStandings(standings: any[]): ConstructorInfo[] {
-    return standings.map(entry => ({
-      position: entry.position,
-      points: entry.points,
-      constructorId: entry.Constructor.constructorId,
-      url: entry.Constructor.url,
-      name: entry.Constructor.name,
-      nationality: entry.Constructor.nationality,
-    }))
-  }
 
   // Merge races with results
   function mapRacesWithResults(races: Race[], raceResultsMap: Map<string, Result>): RaceWithResults[] {
+    const now = new Date()
+
+    // Sort races by date to find the next upcoming
+    const upcomingRaces = races
+      .filter(r => new Date(`${r.date}T${r.time || '00:00:00Z'}`) > now)
+      .sort((a, b) => new Date(`${a.date}T${a.time || '00:00:00Z'}`).getTime() - new Date(`${b.date}T${b.time || '00:00:00Z'}`).getTime())
+
+    const nextUpKey = upcomingRaces[0] ? `${upcomingRaces[0].season}-${upcomingRaces[0].round}` : null
+
     return races.map((race) => {
       const key = `${race.season}-${race.round}`
-      const matchingResult = raceResultsMap.get(key)
+      const raceDate = new Date(`${race.date}T${race.time || '00:00:00Z'}`)
+      let status: 'Completed' | 'Upcoming' | 'Next Up' = 'Completed'
+
+      if (raceDate > now) {
+        status = nextUpKey === key ? 'Next Up' : 'Upcoming'
+      }
 
       return {
         ...race,
@@ -82,9 +85,22 @@ export async function fetchInitialF1Data(season: number = 2025) {
             long: Number(race.Circuit.Location.long),
           },
         },
-        Results: matchingResult?.Results,
+        Results: raceResultsMap.get(key)?.Results,
+        raceStatus: status,
       }
     })
+  }
+
+  // Flatten Constructors
+  function mapConstructorStandings(standings: any[]): ConstructorInfo[] {
+    return standings.map(entry => ({
+      position: entry.position,
+      points: entry.points,
+      constructorId: entry.Constructor.constructorId,
+      url: entry.Constructor.url,
+      name: entry.Constructor.name,
+      nationality: entry.Constructor.nationality,
+    }))
   }
 
   return {
