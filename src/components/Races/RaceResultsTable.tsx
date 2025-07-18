@@ -11,13 +11,13 @@ export default function RaceResultsTable({ results }: { results: RaceWithResults
       <table className="min-w-full rounded-lg overflow-hidden text-xs select-none m-1">
         <thead className="bg-black/50 text-white">
           <tr>
-            <th className="px-2 py-1 text-left">Pos.</th>
+            <th className="px-0,5 py-1 text-center">Pos.</th>
             <th className="py-1 text-left">Driver</th>
             <th className="py-1 text-left">Team</th>
             <th className="py-1 text-left">Best</th>
             <th className="py-1 text-left">Time</th>
             <th className="py-1 text-left">Grid Delta</th>
-            <th className="px-2 py-1">Pts.</th>
+            <th className="px-1 py-1">Pts.</th>
           </tr>
         </thead>
         <tbody className="bg-black/25 text-gray-300">
@@ -70,7 +70,7 @@ export default function RaceResultsTable({ results }: { results: RaceWithResults
               <td className="px-1 py-1">
                 <GridDelta grid={result.grid} position={result.position} />
               </td>
-              <td className="px-1 py-1 text-right">{result.points}</td>
+              <td className="px-1 py-1 text-center">{result.points}</td>
             </tr>
           ))}
         </tbody>
