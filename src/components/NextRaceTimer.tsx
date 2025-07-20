@@ -1,48 +1,39 @@
-"use client";
+'use client'
 
-import { useEffect, useState } from "react";
-import { useF1Data } from "@/context/F1DataContext";
+import FlipClockCountdown from '@leenguyen/react-flip-clock-countdown'
+import '@leenguyen/react-flip-clock-countdown/dist/index.css'
+import { useF1Data } from '@/context/F1DataContext'
 
 export default function NextRaceTimer() {
-  const { nextRace } = useF1Data();
-  const [remaining, setRemaining] = useState("");
-  
-  useEffect(() => {
-    if (!nextRace) {
-      setRemaining("No upcoming race");
-      return;
-    }
+  const { nextRace } = useF1Data()
 
-    const raceDate = new Date(`${nextRace.date}T${nextRace.time}`);
+  if (!nextRace) {
+    return (
+      <div className="text-sm px-2 py-1 bg-purple-800 text-white rounded-lg">
+        No upcoming race
+      </div>
+    )
+  }
 
-    const updateTimer = () => {
-      const now = new Date();
-      const diff = raceDate.getTime() - now.getTime();
-
-      if (diff <= 0) {
-        setRemaining("Live now");
-        return;
-      }
-
-      const totalSeconds = Math.floor(diff / 1000);
-      const days = Math.floor(totalSeconds / (3600 * 24));
-      const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
-      const minutes = Math.floor((totalSeconds % 3600) / 60);
-      const seconds = totalSeconds % 60;
-
-      setRemaining(
-        `${days}d ${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
-      );
-    };
-
-    updateTimer();
-    const interval = setInterval(updateTimer, 1000);
-    return () => clearInterval(interval);
-  }, [nextRace]);
+  const raceDate = new Date(`${nextRace.date}T${nextRace.time}`)
 
   return (
-    <div className="text-sm font-mono px-2 py-1 bg-purple-800 text-white rounded-lg">
-      ⏱ Next Race In: {remaining}
+    <div className="flex flex-row items-center p-2 rounded-lg bg-black/25 backdrop-blur">
+      <p className="text-xl text-white font-medium mr-1">Next Race:</p>
+      <FlipClockCountdown
+        to={raceDate.getTime()}
+        digitBlockStyle={{
+          width: 20,
+          height: 30,
+          fontSize: 18,
+          background: '#000',
+          color: '#ffffff',
+          borderRadius: 6
+        }}
+        dividerStyle={{ color: '#000' }}
+        showSeparators
+        showLabels={false}
+      />
     </div>
-  );
+  )
 }
