@@ -59,7 +59,9 @@ export default function NextRaceTimer() {
 
   return (
     <div className="flex items-center gap-2 p-1 rounded-lg bg-black/25 font-mono text-white text-md">
-      <LucideCalendarClock width={20}/>
+      <span title="Time Until Next Race" className="inline-block">
+        <LucideCalendarClock width={20} />
+      </span>
       <div className="flex items-center gap-0.5">
         <AnimatedDigit value={String(d).padStart(2, '0')} /><span>:</span>
         <AnimatedDigit value={String(h).padStart(2, '0')} /><span>:</span>
