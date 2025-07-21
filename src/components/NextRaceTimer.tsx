@@ -1,39 +1,71 @@
 'use client'
 
-import FlipClockCountdown from '@leenguyen/react-flip-clock-countdown'
-import '@leenguyen/react-flip-clock-countdown/dist/index.css'
+import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useF1Data } from '@/context/F1DataContext'
+import { LucideCalendarClock } from 'lucide-react'
+
+function AnimatedDigit({ value }: { value: string | number }) {
+  return (
+    <AnimatePresence mode="popLayout" initial={false}>
+      <motion.span
+        key={value}
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 10 }}
+        transition={{ duration: 0.2 }}
+        className="inline-block w-6 text-center text-white text-xl"
+      >
+        {value}
+      </motion.span>
+    </AnimatePresence>
+  )
+}
 
 export default function NextRaceTimer() {
   const { nextRace } = useF1Data()
+  const [remaining, setRemaining] = useState([0, 0, 0, 0]) // [d, h, m, s]
+
+  useEffect(() => {
+    if (!nextRace) return
+
+    const raceDate = new Date(`${nextRace.date}T${nextRace.time}`)
+
+    const updateTimer = () => {
+      const now = new Date()
+      const diff = Math.max(0, raceDate.getTime() - now.getTime())
+      const totalSeconds = Math.floor(diff / 1000)
+      const days = Math.floor(totalSeconds / (3600 * 24))
+      const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600)
+      const minutes = Math.floor((totalSeconds % 3600) / 60)
+      const seconds = totalSeconds % 60
+      setRemaining([days, hours, minutes, seconds])
+    }
+
+    updateTimer()
+    const interval = setInterval(updateTimer, 1000)
+    return () => clearInterval(interval)
+  }, [nextRace])
 
   if (!nextRace) {
     return (
-      <div className="text-sm px-2 py-1 bg-purple-800 text-white rounded-lg">
+      <div className="font-sm text-white rounded-lg bg-black/25">
         No upcoming race
       </div>
     )
   }
 
-  const raceDate = new Date(`${nextRace.date}T${nextRace.time}`)
+  const [d, h, m, s] = remaining
 
   return (
-    <div className="flex flex-row items-center p-2 rounded-lg bg-black/25 backdrop-blur">
-      <p className="text-xl text-white font-medium mr-1">Next Race:</p>
-      <FlipClockCountdown
-        to={raceDate.getTime()}
-        digitBlockStyle={{
-          width: 20,
-          height: 30,
-          fontSize: 18,
-          background: '#000',
-          color: '#ffffff',
-          borderRadius: 6
-        }}
-        dividerStyle={{ color: '#000' }}
-        showSeparators
-        showLabels={false}
-      />
+    <div className="flex items-center gap-2 p-1 rounded-lg bg-black/25 font-mono text-white text-md">
+      <LucideCalendarClock width={20}/>
+      <div className="flex items-center gap-0.5">
+        <AnimatedDigit value={String(d).padStart(2, '0')} /><span>:</span>
+        <AnimatedDigit value={String(h).padStart(2, '0')} /><span>:</span>
+        <AnimatedDigit value={String(m).padStart(2, '0')} /><span>:</span>
+        <AnimatedDigit value={String(s).padStart(2, '0')} />
+      </div>
     </div>
   )
 }
