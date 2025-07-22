@@ -13,8 +13,8 @@ const orbitron = Orbitron({
 });
 
 export const metadata: Metadata = {
-  title: "F1 Dashboard",
-  description: "F1 Dashboard app.",
+  title: "F1 POLAR",
+  description: "Real-time F1 dashboard with race results, driver and constructor standings, interactive race map, and detailed statistics for the current Formula 1 season.",
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -27,7 +27,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <F1DataProvider data={{ ...data, nextRace }}>
           <header className="sticky top-0 z-50 bg-slate-900/70 backdrop-blur-[3px] shadow-md">
             <div className="flex items-center justify-between px-4 py-2">
-              <h1 className="text-xl font-bold text-white">F1 Dashboard</h1>
+              <div className="flex items-center gap-2 text-2xl font-bold text-black pl-1 pr-2 py-1 rounded-full bg-white">
+                <img src="/favicon.ico" alt="Logo" className="w-10 h-10" />
+                F1 POLAR
+              </div>
               <div className="flex items-center gap-4">
                 <NextRaceTimer />
                 <TeamThemeSwitcher />
