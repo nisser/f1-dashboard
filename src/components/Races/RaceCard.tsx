@@ -1,7 +1,7 @@
 'use client'
 
 import { ChevronDown, MapPin } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { getFlagUrl } from "@/lib/flag"
 import { useMapStore } from '@/lib/mapStore'
 import { RaceWithResults } from "@/lib/types"
@@ -36,7 +36,7 @@ export default function RaceCard({
       <div className="flex justify-between items-center mb-1">
         <div className="flex items-center gap-2 pl-1">
           <span className={`inline-block bg-black/25 font-semibold rounded-md transition-all duration-300
-            ${isExpanded ? 'px-3 py-1.5 text-md' : 'px-1.5 py-0.5 text-sm'}`}>
+      ${isExpanded ? 'px-3 py-1.5 text-md' : 'px-1.5 py-0.5 text-sm'}`}>
             R{race.round}
           </span>
           <div className="flex flex-col">
@@ -53,9 +53,9 @@ export default function RaceCard({
                 />
               )}
               <span className={`px-2 py-0.5 rounded-full text-xs font-semibold text-gray-300
-                ${race.raceStatus === 'Completed' && 'bg-black/25'}
-                ${race.raceStatus === 'Next Up' && 'bg-green-700'}
-                ${race.raceStatus === 'Upcoming' && 'bg-blue-700'}`} >
+          ${race.raceStatus === 'Completed' && 'bg-black/25'}
+          ${race.raceStatus === 'Next Up' && 'bg-green-700'}
+          ${race.raceStatus === 'Upcoming' && 'bg-blue-700'}`}>
                 {race.raceStatus}
               </span>
             </div>
@@ -67,17 +67,59 @@ export default function RaceCard({
           </div>
         </div>
 
-        <div className="flex flex-col items-end ml-auto mr-1 text-xs text-gray-300">
-          <span>{date.toLocaleDateString(undefined, { month: 'long', day: 'numeric' })}</span>
-          <span>{date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false })}</span>
-        </div>
+        {/* Animated Wiki & Map buttons */}
+        <div className="flex items-center gap-2 mr-2">
+          <AnimatePresence>
+            {isExpanded && (
+              <motion.div
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 10 }}
+                transition={{ duration: 0.2 }}
+                className="flex items-center gap-2"
+              >
+                <a
+                  href={race.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-block p-0.5 bg-white text-black rounded-md hover:bg-gray-400 transition"
+                >
+                  <img
+                    src={`/icons/wikipedia.svg`}
+                    alt={`wiki logo`}
+                    className="w-6 h-6"
+                  />
+                </a>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setFocus({
+                      lat: race.Circuit.Location.lat,
+                      long: race.Circuit.Location.long,
+                    })
+                  }}
+                  className="inline-block p-0.5 bg-white text-black rounded-md hover:bg-gray-400 transition"
+                >
+                  <MapPin className="w-6 h-6 text-black" />
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-        <motion.div
-          animate={{ rotate: isExpanded ? 180 : 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <ChevronDown size={20} />
-        </motion.div>
+          <div className="flex flex-col items-end ml-auto mr-1 text-xs text-gray-300">
+            <span>{date.toLocaleDateString(undefined, { month: 'long', day: 'numeric' })}</span>
+            <span>{date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false })}</span>
+          </div>
+
+          {/* Chevron Icon */}
+          <motion.div
+            animate={{ rotate: isExpanded ? 180 : 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <ChevronDown size={20} />
+          </motion.div>
+        </div>
       </div>
 
       {/* Expandable Section */}
@@ -93,33 +135,6 @@ export default function RaceCard({
           ) : (
             <p className="text-xs text-gray-300">No results to display yet.</p>
           )}
-          <div className='flex flex-row items-end ml-auto p-1'>
-            <a
-              href={race.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="inline-block p-0.5 bg-white text-black rounded-md hover:bg-gray-400 transition"
-            >
-              <img
-                src={`/icons/wikipedia.svg`}
-                alt={`wiki logo`}
-                className="w-6 h-6"
-              />
-            </a>
-            <button
-              onClick={(e) => {
-                e.stopPropagation()
-                setFocus({
-                  lat: race.Circuit.Location.lat,
-                  long: race.Circuit.Location.long,
-                })
-              }}
-              className="inline-block p-0.5 ml-2 bg-white text-black rounded-md hover:bg-gray-400 transition"
-            >
-              <MapPin className="w-6 h-6 text-black" />
-            </button>
-          </div>
         </section>
       </motion.div>
     </motion.div>
