@@ -8,7 +8,7 @@ import { GridDelta } from '@/components/GridDelta'
 export default function RaceResultsTable({ results }: { results: RaceWithResults }) {
   return (
     <div onClick={(e) => e.stopPropagation()}>
-      <table className="min-w-full rounded-lg overflow-hidden text-xs select-none m-1">
+      <table className="w-full rounded-lg overflow-hidden text-xs select-none">
         <thead className="bg-black/50 text-white">
           <tr>
             <th className="px-0,5 py-1 text-center">Pos.</th>

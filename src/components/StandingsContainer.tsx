@@ -29,7 +29,7 @@ export default function StandingsContainer({ driverStandings, constructorStandin
     <section className="side-panel">
       <div
         ref={containerRef}
-        className="inline-flex bg-black/25 mb-2 rounded-full relative select-none"
+        className="inline-flex bg-black/25 mb-1 rounded-full relative select-none"
         style={{ position: 'relative' }}
       >
         <div
