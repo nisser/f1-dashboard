@@ -1,4 +1,4 @@
-# **F1 Dashboard**
+# **F1 POLAR**
 
 🚧 **In Development** 🚧
 
