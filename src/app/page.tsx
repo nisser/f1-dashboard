@@ -1,6 +1,6 @@
 "use client";
 
-import StandingsContainer from "@/components/StandingsContainer";
+import StandingsContainer from "@/components/Standings/StandingsContainer";
 import MapWrapper from "@/components/Map/MapWrapper";
 import RaceList from "@/components/Races/RaceList";
 import { useF1Data } from "@/context/F1DataContext";

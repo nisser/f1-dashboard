@@ -1,9 +1,8 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import DriverList from "./Drivers/DriverList"
-import ConstructorList from "./Constructors/ConstructorList"
 import { DriverInfo, ConstructorInfo } from '@/lib/types'
+import StandingsBarList from "./StandingsBarList"
 
 type Props = {
   driverStandings: DriverInfo[]
@@ -54,9 +53,9 @@ export default function StandingsContainer({ driverStandings, constructorStandin
 
       <div>
         {activeTab === 'drivers' ? (
-          <DriverList driverStandings={driverStandings} />
+          <StandingsBarList standings={driverStandings}/>
         ) : (
-          <ConstructorList constructorStandings={constructorStandings} />
+          <StandingsBarList standings={constructorStandings}/>
         )}
       </div>
     </section>
