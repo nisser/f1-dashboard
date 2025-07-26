@@ -62,12 +62,16 @@ export default function NextRaceTimer() {
       <span title="Time Until Next Race" className="inline-block">
         <LucideCalendarClock width={20} />
       </span>
-      <div className="flex items-center gap-0.5">
-        <AnimatedDigit value={String(d).padStart(2, '0')} /><span>:</span>
-        <AnimatedDigit value={String(h).padStart(2, '0')} /><span>:</span>
-        <AnimatedDigit value={String(m).padStart(2, '0')} /><span>:</span>
-        <AnimatedDigit value={String(s).padStart(2, '0')} />
-      </div>
+<div className="flex items-center gap-0.5">
+  <AnimatedDigit value={String(d)} />
+  <span className="text-l">{d === 1 ? 'Day' : 'Days'},</span>
+  <AnimatedDigit value={String(h).padStart(2, '0')} />
+  <span>:</span>
+  <AnimatedDigit value={String(m).padStart(2, '0')} />
+  <span>:</span>
+  <AnimatedDigit value={String(s).padStart(2, '0')} />
+</div>
+
     </div>
   )
 }
