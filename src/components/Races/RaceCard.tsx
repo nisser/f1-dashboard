@@ -7,6 +7,20 @@ import { useMapStore } from '@/lib/mapStore'
 import { RaceWithResults } from "@/lib/types"
 import RaceResultsTable from "@/components/Races/RaceResultsTable"
 
+function getRaceStatus(race: RaceWithResults): string {
+  if (race.raceStatus !== 'Completed') {
+    const start = new Date(`${race.date}T${race.time || '00:00:00Z'}`).getTime()
+    const now = Date.now()
+    const end = start + 3 * 60 * 60 * 1000
+
+    if (now >= start && now <= end) {
+      return 'In Progress'
+    }
+  }
+
+  return race.raceStatus
+}
+
 export default function RaceCard({
   race,
   isExpanded,
@@ -53,11 +67,13 @@ export default function RaceCard({
                 />
               )}
               <span className={`px-2 py-0.5 rounded-full text-xs font-semibold text-gray-300
-          ${race.raceStatus === 'Completed' && 'bg-black/25'}
-          ${race.raceStatus === 'Next Up' && 'bg-green-700'}
-          ${race.raceStatus === 'Upcoming' && 'bg-blue-700'}`}>
-                {race.raceStatus}
+              ${getRaceStatus(race) === 'Completed' && 'bg-black/25'}
+              ${getRaceStatus(race) === 'Next Up' && 'bg-green-700'}
+              ${getRaceStatus(race) === 'Upcoming' && 'bg-blue-700'}
+              ${getRaceStatus(race) === 'In Progress' && 'bg-red-600'}`}>
+                {getRaceStatus(race)}
               </span>
+
             </div>
             {isExpanded && (
               <p className="text-xs text-gray-300">
@@ -112,7 +128,6 @@ export default function RaceCard({
             <span>{date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false })}</span>
           </div>
 
-          {/* Chevron Icon */}
           <motion.div
             animate={{ rotate: isExpanded ? 180 : 0 }}
             transition={{ duration: 0.3 }}
