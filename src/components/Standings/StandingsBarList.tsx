@@ -6,7 +6,7 @@ import type { DriverInfo, ConstructorInfo } from '@/lib/types'
 type StandingsEntry = ConstructorInfo | DriverInfo
 
 function isConstructor(entry: StandingsEntry): entry is ConstructorInfo {
-  return 'constructorId' in entry
+  return 'Constructor' in entry
 }
 
 export default function Standings({ standings = [] }: { standings: StandingsEntry[] }) {
@@ -23,7 +23,7 @@ export default function Standings({ standings = [] }: { standings: StandingsEntr
     <section>
       <ul>
         {standings.map((entry) => {
-          const key = isConstructor(entry) ? entry.constructorId : entry.Driver.driverId
+          const key = isConstructor(entry) ? entry.Constructor.constructorId : entry.Driver.driverId
           return (
             <li key={key}>
               <StandingsBar

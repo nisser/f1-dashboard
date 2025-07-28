@@ -91,21 +91,9 @@ export async function fetchInitialF1Data(season: number = 2025) {
     })
   }
 
-  // Flatten Constructors
-  function mapConstructorStandings(standings: any[]): ConstructorInfo[] {
-    return standings.map(entry => ({
-      position: entry.position,
-      points: entry.points,
-      constructorId: entry.Constructor.constructorId,
-      url: entry.Constructor.url,
-      name: entry.Constructor.name,
-      nationality: entry.Constructor.nationality,
-    }))
-  }
-
   return {
     driverStandings: (driversData?.MRData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings || []) as DriverInfo[],
-    constructorStandings: mapConstructorStandings(constructorsData?.MRData?.StandingsTable?.StandingsLists?.[0]?.ConstructorStandings || []),
+    constructorStandings: (constructorsData?.MRData?.StandingsTable?.StandingsLists?.[0]?.ConstructorStandings || []) as ConstructorInfo[],
     races: mapRacesWithResults(races, raceResultsMap),
   }
 }

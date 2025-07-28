@@ -16,15 +16,15 @@ const getPositionColor = (position: string) => {
 }
 
 function isConstructor(entry: ConstructorInfo | DriverInfo): entry is ConstructorInfo {
-  return 'constructorId' in entry
+  return 'Constructor' in entry
 }
 
 export default function StandingsBar({ entry, maxPoints }: { entry: ConstructorInfo | DriverInfo, maxPoints: number }) {
   const barWidth = (parseFloat(entry.points) / maxPoints) * 100
   const showOutside = barWidth < 13
-  const barColorStyle = isConstructor(entry)
-    ? `var(--${entry.constructorId.toLowerCase()})`
-    : `var(--${entry.Constructors[entry.Constructors.length - 1].constructorId.toLowerCase?.() ?? 'background'})`
+const barColorStyle = isConstructor(entry)
+  ? `var(--${entry.Constructor.constructorId.toLowerCase()})`
+  : `var(--${entry.Constructors?.[entry.Constructors.length - 1]?.Constructor?.constructorId?.toLowerCase?.() ?? 'background'})`
 
   return (
     <div className="relative text-white whitespace-nowrap">
@@ -36,8 +36,8 @@ export default function StandingsBar({ entry, maxPoints }: { entry: ConstructorI
           <div className="flex items-center">
             {isConstructor(entry) ? (
               <img
-                src={`/team-logos/${entry.constructorId.toLowerCase()}.svg`}
-                alt={`${entry.name} logo`}
+                src={`/team-logos/${entry.Constructor.constructorId.toLowerCase()}.svg`}
+                alt={`${entry.Constructor.name} logo`}
                 className="w-4 h-4"
                 loading="lazy"
               />
@@ -51,7 +51,7 @@ export default function StandingsBar({ entry, maxPoints }: { entry: ConstructorI
             )}
             <p className="text-xs pl-1 font-medium">
               {isConstructor(entry)
-                ? entry.name
+                ? entry.Constructor.name
                 : `${entry.Driver.givenName} ${entry.Driver.familyName}`}
             </p>
           </div>
