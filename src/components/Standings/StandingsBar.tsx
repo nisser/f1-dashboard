@@ -16,15 +16,15 @@ const getPositionColor = (position: string) => {
 }
 
 function isConstructor(entry: ConstructorInfo | DriverInfo): entry is ConstructorInfo {
-  return 'Constructor' in entry
+  return 'constructorId' in entry
 }
 
-export default function StandingsBar({ entry, maxPoints }: { entry: ConstructorInfo | DriverInfo, maxPoints: number }) {
+export default function StandingsBar({ entry, maxPoints, deltaPoints }: { entry: ConstructorInfo | DriverInfo, maxPoints: number, deltaPoints: number }) {
   const barWidth = (parseFloat(entry.points) / maxPoints) * 100
-  const showOutside = barWidth < 13
-const barColorStyle = isConstructor(entry)
-  ? `var(--${entry.Constructor.constructorId.toLowerCase()})`
-  : `var(--${entry.Constructors?.[entry.Constructors.length - 1]?.Constructor?.constructorId?.toLowerCase?.() ?? 'background'})`
+  const showOutside = barWidth < 15
+  const barColorStyle = isConstructor(entry)
+    ? `var(--${entry.constructorId.toLowerCase()})`
+    : `var(--${entry.Constructors[entry.Constructors.length - 1].constructorId.toLowerCase?.() ?? 'background'})`
 
   return (
     <div className="relative text-white whitespace-nowrap">
@@ -36,8 +36,8 @@ const barColorStyle = isConstructor(entry)
           <div className="flex items-center">
             {isConstructor(entry) ? (
               <img
-                src={`/team-logos/${entry.Constructor.constructorId.toLowerCase()}.svg`}
-                alt={`${entry.Constructor.name} logo`}
+                src={`/team-logos/${entry.constructorId.toLowerCase()}.svg`}
+                alt={`${entry.name} logo`}
                 className="w-4 h-4"
                 loading="lazy"
               />
@@ -51,7 +51,7 @@ const barColorStyle = isConstructor(entry)
             )}
             <p className="text-xs pl-1 font-medium">
               {isConstructor(entry)
-                ? entry.Constructor.name
+                ? entry.name
                 : `${entry.Driver.givenName} ${entry.Driver.familyName}`}
             </p>
           </div>
@@ -66,13 +66,19 @@ const barColorStyle = isConstructor(entry)
               {!showOutside && (
                 <div className="h-full flex items-center justify-end mr-1">
                   {entry.points} Pts.
+                  {deltaPoints > 0 && (
+                    <span className="text-green-400"> (+{deltaPoints})</span>
+                  )}
                 </div>
               )}
             </motion.div>
 
             {showOutside && (
               <div className="flex flex-row items-center text-left ml-1">
-                {entry.points} Pts.
+                {entry.points} Pts. 
+                {deltaPoints > 0 && (
+                  <span className="text-green-400"> (+{deltaPoints})</span>
+                )}
               </div>
             )}
           </div>

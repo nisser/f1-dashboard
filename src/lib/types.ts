@@ -86,31 +86,22 @@ export type CircuitLocation = {
 }
 
 export type ConstructorInfo = {
-  position: string
-  points: string
-  Constructor: {
+    position: string
+    points: string
     constructorId: string
     name: string
     nationality: string
     url: string
-  }
 }
 
 export type DriverInfo = {
-  position: string
-  points: string
-  Driver: {
-    driverId: string
-    givenName: string
-    familyName: string
-    nationality: string
-  }
-  Constructors: {
-    Constructor: {
-      constructorId: string
-      name: string
-      nationality: string
-      url: string
+    position: string
+    points: string
+    Driver: {
+        driverId: string
+        givenName: string
+        familyName: string
+        nationality: string
     }
-  }[]
+    Constructors: ConstructorInfo[]
 }
