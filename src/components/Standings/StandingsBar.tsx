@@ -21,7 +21,7 @@ function isConstructor(entry: ConstructorInfo | DriverInfo): entry is Constructo
 
 export default function StandingsBar({ entry, maxPoints, deltaPoints }: { entry: ConstructorInfo | DriverInfo, maxPoints: number, deltaPoints: number }) {
   const barWidth = (parseFloat(entry.points) / maxPoints) * 100
-  const showOutside = barWidth < 15
+  const showOutside = barWidth < 30
   const barColorStyle = isConstructor(entry)
     ? `var(--${entry.constructorId.toLowerCase()})`
     : `var(--${entry.Constructors[entry.Constructors.length - 1].constructorId.toLowerCase?.() ?? 'background'})`
@@ -64,10 +64,10 @@ export default function StandingsBar({ entry, maxPoints, deltaPoints }: { entry:
               transition={{ duration: 1 }}
             >
               {!showOutside && (
-                <div className="h-full flex items-center justify-end mr-1">
+                <div className="h-full flex items-center justify-end">
                   {entry.points} Pts.
                   {deltaPoints > 0 && (
-                    <span className="text-green-400"> (+{deltaPoints})</span>
+                    <span className="bg-black/50 rounded-md text-green-400 ml-1 px-0.5">(+{deltaPoints})</span>
                   )}
                 </div>
               )}
@@ -75,9 +75,9 @@ export default function StandingsBar({ entry, maxPoints, deltaPoints }: { entry:
 
             {showOutside && (
               <div className="flex flex-row items-center text-left ml-1">
-                {entry.points} Pts. 
+                {entry.points} Pts.
                 {deltaPoints > 0 && (
-                  <span className="text-green-400"> (+{deltaPoints})</span>
+                  <span className="bg-black/50 rounded-md text-green-400 ml-1 px-0.5"> (+{deltaPoints})</span>
                 )}
               </div>
             )}
