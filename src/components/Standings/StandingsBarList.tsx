@@ -22,9 +22,18 @@ export default function Standings({ standings = [] }: { standings: StandingsEntr
     .filter(r => r.raceStatus === 'Completed')
     .at(-1)
 
+  // 1. Map driverId to points earned in the latest race
   const latestDriverPoints: Record<string, number> = {}
+  // 2. Map constructorId to total points earned in the latest race
+  const latestConstructorPoints: Record<string, number> = {}
+
   latestCompletedRace?.Results?.forEach(result => {
-    latestDriverPoints[result.Driver.driverId] = parseFloat(result.points)
+    const driverId = result.Driver.driverId
+    const constructorId = result.Constructor.constructorId
+    const points = parseFloat(result.points)
+
+    latestDriverPoints[driverId] = points
+    latestConstructorPoints[constructorId] = (latestConstructorPoints[constructorId] ?? 0) + points
   })
 
   return (
@@ -32,8 +41,9 @@ export default function Standings({ standings = [] }: { standings: StandingsEntr
       <ul>
         {standings.map((entry) => {
           const key = isConstructor(entry) ? entry.constructorId : entry.Driver.driverId
+
           const deltaPoints = isConstructor(entry)
-            ? 0
+            ? latestConstructorPoints[entry.constructorId] ?? 0
             : latestDriverPoints[entry.Driver.driverId] ?? 0
 
           return (
