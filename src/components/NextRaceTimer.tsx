@@ -14,7 +14,7 @@ function AnimatedDigit({ value }: { value: string | number }) {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 10 }}
         transition={{ duration: 0.2 }}
-        className="inline-block w-6 text-center text-white text-xl"
+        className="inline-block text-center text-xl"
       >
         {value}
       </motion.span>
@@ -49,7 +49,7 @@ export default function NextRaceTimer() {
 
   if (!nextRace) {
     return (
-      <div className="font-sm text-white rounded-lg bg-black/25">
+      <div className="font-l rounded-lg bg-black/25">
         No upcoming race
       </div>
     )
@@ -58,20 +58,19 @@ export default function NextRaceTimer() {
   const [d, h, m, s] = remaining
 
   return (
-    <div className="flex items-center gap-2 p-1 rounded-lg bg-black/25 font-mono text-white text-md">
-      <span title="Time Until Next Race" className="inline-block">
-        <LucideCalendarClock width={20} />
-      </span>
-<div className="flex items-center gap-0.5">
-  <AnimatedDigit value={String(d)} />
-  <span className="text-l">{d === 1 ? 'Day' : 'Days'},</span>
-  <AnimatedDigit value={String(h).padStart(2, '0')} />
-  <span>:</span>
-  <AnimatedDigit value={String(m).padStart(2, '0')} />
-  <span>:</span>
-  <AnimatedDigit value={String(s).padStart(2, '0')} />
-</div>
-
-    </div>
+    <span title="Time Until Next Race">
+      <div className="flex items-center px-2 py-1 gap-2 rounded-lg bg-black/25 font-mono text-md">
+        <LucideCalendarClock height={28} />
+        <div className="flex items-center">
+          <AnimatedDigit value={String(d).concat("D")} />
+          <span className="w-1" />
+          <AnimatedDigit value={String(h).padStart(2, '0')} />
+          <span>:</span>
+          <AnimatedDigit value={String(m).padStart(2, '0')} />
+          <span>:</span>
+          <AnimatedDigit value={String(s).padStart(2, '0')} />
+        </div>
+      </div>
+    </span>
   )
 }
