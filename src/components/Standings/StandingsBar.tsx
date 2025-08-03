@@ -53,15 +53,12 @@ export default function StandingsBar({ entry, maxPoints, deltaPoints }: { entry:
               {isConstructor(entry)
                 ? entry.name
                 : `${entry.Driver.givenName} ${entry.Driver.familyName}`}
-              {deltaPoints > 0 && (
-                <span className="text-green-400 ml-1">(+{deltaPoints})</span>
-              )}
             </p>
           </div>
           <div className="flex flex-1 mt-[2px] text-xs font-semibold">
             <motion.div
               className="h-4 rounded-md border border-black overflow-hidden"
-              style={{ backgroundColor: barColorStyle }}
+              style={{ backgroundImage: `linear-gradient(to right, ${barColorStyle} 0%, rgba(0, 0, 0, 0.6) 100%)` }}
               initial={{ width: 0 }}
               animate={{ width: `${barWidth}%` }}
               transition={{ duration: 1 }}
@@ -69,12 +66,18 @@ export default function StandingsBar({ entry, maxPoints, deltaPoints }: { entry:
               {!showOutside && (
                 <div className="h-full flex items-center justify-end mr-1">
                   {entry.points} Pts.
+                  {deltaPoints > 0 && (
+                    <span className="text-green-400 ml-1">(+{deltaPoints})</span>
+                  )}
                 </div>
               )}
             </motion.div>
             {showOutside && (
               <div className="flex flex-row items-center text-left ml-1">
                 {entry.points} Pts.
+                {deltaPoints > 0 && (
+                  <span className="text-green-400 ml-1">(+{deltaPoints})</span>
+                )}
               </div>
             )}
           </div>
