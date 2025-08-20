@@ -58,7 +58,7 @@ export default function StandingsBar({ entry, maxPoints, deltaPoints }: { entry:
           <div className="flex flex-1 mt-[2px] text-xs font-semibold">
             <motion.div
               className="h-4 rounded-md border border-black overflow-hidden"
-              style={{ backgroundImage: `linear-gradient(to right, ${barColorStyle} 0%, rgba(0, 0, 0, 0.6) 100%)` }}
+              style={{ backgroundImage: `linear-gradient(to right, ${barColorStyle} 50%, rgba(0, 0, 0, 0.6) 100%)` }}
               initial={{ width: 0 }}
               animate={{ width: `${barWidth}%` }}
               transition={{ duration: 1 }}

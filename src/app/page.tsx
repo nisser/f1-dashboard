@@ -11,7 +11,7 @@ export default function HomePage() {
   return (
     <main>
       <div className="flex flex-col md:flex-row">
-          <RaceList races={races} />
+        <RaceList races={races} />
         <div className="sticky top-[64px] flex flex-col gap-1 p-1 self-start">
           <StandingsContainer driverStandings={driverStandings} constructorStandings={constructorStandings} />
           <MapWrapper

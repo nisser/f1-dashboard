@@ -14,7 +14,7 @@ function AnimatedDigit({ value }: { value: string | number }) {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 10 }}
         transition={{ duration: 0.2 }}
-        className="inline-block text-center text-xl"
+        className="inline-block text-center text-m sm:text-xl"
       >
         {value}
       </motion.span>
@@ -59,7 +59,7 @@ export default function NextRaceTimer() {
 
   return (
     <span title="Time Until Next Race">
-      <div className="flex items-center px-2 py-1 gap-2 rounded-lg bg-black/25 font-mono text-md">
+      <div className="flex items-center px-2 py-1 md:gap-2 gap-1 rounded-lg bg-black/25 font-mono">
         <LucideCalendarClock height={28} />
         <div className="flex items-center">
           <AnimatedDigit value={String(d).concat("D")} />
