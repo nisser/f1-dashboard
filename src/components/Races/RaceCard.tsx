@@ -128,7 +128,7 @@ export default function RaceCard({
             )}
           </AnimatePresence>
 
-          <div className="flex flex-col items-end ml-auto mr-1 text-[8px] text-gray-300">
+          <div className="flex flex-col items-end ml-auto mr-1 md:text-xs text-[8px] text-gray-300 whitespace-nowrap">
             <span>{date.toLocaleDateString(undefined, { month: 'long', day: 'numeric' })}</span>
             <span>{date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false })}</span>
           </div>

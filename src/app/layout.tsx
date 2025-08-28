@@ -24,21 +24,23 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang="en">
-      <body className={`${orbitron.variable} antialiased`}>
+      <body className={`${orbitron.variable} antialiased min-h-screen flex flex-col`}>
         <F1DataProvider data={{ ...data, nextRace }}>
-          <header className="sticky top-0 z-50 bg-slate-900/70 backdrop-blur-[3px] shadow-md">
+          <header className="sticky top-0 z-50 bg-slate-900/70 backdrop-blur-[3px]">
             <div className="flex items-center justify-between px-2 py-2">
-              <div className="flex items-center gap-2 text-lg sm:text-2xl font-bold text-white pl-1 pr-2 py-1 rounded-full bg-black/25">
+              <div className="flex items-center gap-2 text-lg md:text-2xl font-bold text-white pl-1 pr-2 py-1 rounded-full bg-black/25 whitespace-nowrap">
                 <AnimatedLogo />
                 F1 POLAR
               </div>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
                 <NextRaceTimer />
                 <TeamThemeSwitcher />
               </div>
             </div>
           </header>
-          <div>{children}</div>
+          <main>
+            {children}
+          </main>
         </F1DataProvider>
       </body>
     </html>
