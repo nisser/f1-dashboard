@@ -55,7 +55,7 @@ export default function RaceCard({
           </span>
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
-              <h2 className="text-xl font-bold">
+              <h2 className="text-xs md:text-xl font-bold">
                 {race.raceName.replace(/grand prix/i, 'GP')}
               </h2>
               {getFlagUrl(race.Circuit.Location.country) && (
@@ -66,17 +66,22 @@ export default function RaceCard({
                   loading="lazy"
                 />
               )}
-              <span className={`px-2 py-0.5 rounded-full text-xs font-semibold text-gray-300
-              ${getRaceStatus(race) === 'Completed' && 'bg-black/25'}
-              ${getRaceStatus(race) === 'Next Up' && 'bg-green-700'}
-              ${getRaceStatus(race) === 'Upcoming' && 'bg-blue-700'}
-              ${getRaceStatus(race) === 'In Progress' && 'bg-red-600'}`}>
-                {getRaceStatus(race)}
+              <span
+                className={`px-2 py-0.5 rounded-full text-xs font-semibold text-gray-300
+                ${getRaceStatus(race) === 'Completed' && 'bg-black/25'}
+                ${getRaceStatus(race) === 'Next Up' && 'bg-green-700'}
+                ${getRaceStatus(race) === 'Upcoming' && 'bg-blue-700'}
+                ${getRaceStatus(race) === 'In Progress' && 'bg-red-600'}`}>
+                <span className="block md:hidden">
+                  {getRaceStatus(race).charAt(0).toUpperCase()}
+                </span>
+                <span className="hidden md:block">
+                  {getRaceStatus(race)}
+                </span>
               </span>
-
             </div>
             {isExpanded && (
-              <p className="text-xs text-gray-300">
+              <p className="text-[10px] text-gray-300">
                 {race.Circuit.circuitName}, {race.Circuit.Location.locality}
               </p>
             )}
@@ -92,7 +97,7 @@ export default function RaceCard({
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 10 }}
                 transition={{ duration: 0.2 }}
-                className="flex items-center gap-2"
+                className="hidden md:flex flex items-center gap-2"
               >
                 <a
                   href={race.url}
@@ -123,7 +128,7 @@ export default function RaceCard({
             )}
           </AnimatePresence>
 
-          <div className="flex flex-col items-end ml-auto mr-1 text-xs text-gray-300">
+          <div className="flex flex-col items-end ml-auto mr-1 text-[8px] text-gray-300">
             <span>{date.toLocaleDateString(undefined, { month: 'long', day: 'numeric' })}</span>
             <span>{date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false })}</span>
           </div>

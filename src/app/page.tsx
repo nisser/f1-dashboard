@@ -14,14 +14,16 @@ export default function HomePage() {
         <RaceList races={races} />
         <div className="sticky top-[64px] flex flex-col gap-1 p-1 self-start">
           <StandingsContainer driverStandings={driverStandings} constructorStandings={constructorStandings} />
-          <MapWrapper
-            circuitLocations={races.map((race) => ({
-              lat: race.Circuit.Location.lat,
-              long: race.Circuit.Location.long,
-              locality: race.Circuit.Location.locality,
-              country: race.Circuit.Location.country,
-            }))}
-          />
+          <div className="hidden md:block">
+            <MapWrapper
+              circuitLocations={races.map((race) => ({
+                lat: race.Circuit.Location.lat,
+                long: race.Circuit.Location.long,
+                locality: race.Circuit.Location.locality,
+                country: race.Circuit.Location.country,
+              }))}
+            />
+          </div>
         </div>
       </div>
     </main>
