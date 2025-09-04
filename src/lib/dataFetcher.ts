@@ -6,7 +6,7 @@ export async function fetchAllRaceResults(season: number) {
   const limit = 100
 
   while (true) {
-    const res = await fetch(`https://api.jolpi.ca/ergast/f1/${season}/results.json?limit=${limit}&offset=${offset}`, { cache: 'force-cache' })
+    const res = await fetch(`https://api.jolpi.ca/ergast/f1/${season}/results.json?limit=${limit}&offset=${offset}`, { cache: 'no-cache' })
     const data = await res.json()
 
     const races = data?.MRData?.RaceTable?.Races || []
