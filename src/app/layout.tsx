@@ -14,7 +14,7 @@ const orbitron = Orbitron({
 });
 
 export const metadata: Metadata = {
-  title: "F1 POLAR",
+  title: "POLAR F1",
   description: "Real-time F1 dashboard with race results, driver and constructor standings, interactive race map, and detailed statistics for the current Formula 1 season.",
 };
 
@@ -30,7 +30,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <div className="flex items-center justify-between px-2 py-2">
               <div className="flex items-center gap-2 text-lg md:text-2xl font-bold text-white pl-1 pr-2 py-1 rounded-full bg-black/25 whitespace-nowrap">
                 <AnimatedLogo />
-                F1 POLAR
+                POLAR F1
               </div>
               <div className="flex items-center gap-2">
                 <NextRaceTimer />
