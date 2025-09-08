@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RaceWithResults, Race, Result, ConstructorInfo, DriverInfo } from "./types"
 
 export async function fetchAllRaceResults(season: number) {
