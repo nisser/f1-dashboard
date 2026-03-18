@@ -32,7 +32,7 @@ const itemVariants = {
 }
 
 export default function TeamThemeSwitcher() {
-  const [activeTeam, setActiveTeam] = useState('mclaren')
+  const [activeTeam, setActiveTeam] = useState('mercedes')
   const [open, setOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 

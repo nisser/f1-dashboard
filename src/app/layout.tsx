@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const data = await fetchInitialF1Data(2025);
+  const data = await fetchInitialF1Data(2026);
   const nextRace = data.races.find((r) => r.raceStatus === "Next Up") ?? null;
 
   return (
